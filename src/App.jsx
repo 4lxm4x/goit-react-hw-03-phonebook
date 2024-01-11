@@ -38,11 +38,9 @@ class App extends Component {
     }
 
     this.setState(prevState => {
-      let updatedContacts = [...prevState.contacts];
+      let contacts = [...prevState.contacts, contact];
 
-      updatedContacts.push(contact);
-
-      return { contacts: updatedContacts };
+      return { contacts };
     });
   };
 
