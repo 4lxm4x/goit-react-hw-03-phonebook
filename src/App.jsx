@@ -26,11 +26,10 @@ class App extends Component {
 
   filterContacts = () => {
     let filteredContacts = [];
-    this.state.contacts.forEach(contact => {
-      if (contact.name.toLowerCase().includes(this.state.filter)) {
-        filteredContacts.push(contact);
-      }
-    });
+    const { contacts, filter } = this.state;
+    filteredContacts = contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter)
+    );
 
     return filteredContacts;
   };
@@ -47,23 +46,22 @@ class App extends Component {
 
       return { contacts };
     });
-    // console.log(localStorage.getItem('contacts'));
   };
 
   deleteContact = e => {
     const deletedContactName = e.target.id;
     let updatedContacts = [];
-    for (let contactInState of this.state.contacts) {
-      if (
+
+    updatedContacts = this.state.contacts.filter(
+      contactInState =>
         deletedContactName.toLowerCase() !== contactInState.name.toLowerCase()
-      ) {
-        updatedContacts.push(contactInState);
-      }
-    }
+    );
+
     this.setState(() => {
       return { contacts: updatedContacts };
     });
   };
+
   render() {
     return (
       <div className="mainDiv">
