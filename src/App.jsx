@@ -6,11 +6,16 @@ import './App.css';
 
 class App extends Component {
   state = {
-    contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-    ],
+    contacts: [],
     filter: '',
+  };
+
+  componentDidMount = () => {
+    const contacts = JSON.parse(localStorage.getItem('contacts'));
+    this.setState({ contacts });
+  };
+  componentDidUpdate = () => {
+    localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
   };
 
   onHandleFilter = input => {
@@ -42,6 +47,7 @@ class App extends Component {
 
       return { contacts };
     });
+    // console.log(localStorage.getItem('contacts'));
   };
 
   deleteContact = e => {
